@@ -18,7 +18,8 @@ def main(inventory: str):
             total_calories_per_elf = 0
             items = inventory.split("\n")
             for item in items:
-                total_calories_per_elf = total_calories_per_elf + int(item)
+                if (item):
+                    total_calories_per_elf = total_calories_per_elf + int(item)
 
             if (total_calories_per_elf > max_calories):
                 max_calories = total_calories_per_elf
