@@ -1,6 +1,6 @@
 # Authored by RAKOTOMALALA Hassim Mazahere, 01/12/2022 19h12
 
-def main(inventory: str):
+def main(inventory: str) -> list:
     """ Main method solving the puzzle.
     This first iteration just gets the inventory string, single out per elf inventory,
     and count the amount of calories of every elf's item in a linear fashion
@@ -8,9 +8,10 @@ def main(inventory: str):
     args:
      - inventory : string input of the inventory
 
-     returns the maximum amount of calories carried by a single elf
+     returns the list in descending order to the calories carried by each elf
+     (eg: the most loaded elf carries the calories amount in index 0 of the list)
     """
-    max_calories = 0
+    calories_inventory = []
     inventory_per_elf = inventory.split("\n\n")
 
     if (inventory_per_elf):
@@ -20,11 +21,10 @@ def main(inventory: str):
             for item in items:
                 if (item):
                     total_calories_per_elf = total_calories_per_elf + int(item)
+                calories_inventory.append(total_calories_per_elf)
 
-            if (total_calories_per_elf > max_calories):
-                max_calories = total_calories_per_elf
-
-    return max_calories
+    calories_inventory.sort(reverse=True)
+    return calories_inventory
 
 
 if (__name__ == "__main__"):
@@ -38,7 +38,11 @@ if (__name__ == "__main__"):
         else:
             ret = main(input)
             if (ret):
-                print(ret)
+                print("Sum of calories of the 3 most loaded elves")
+                if (len(ret) >= 3):
+                    print(ret[0]+ret[1]+ret[2])
+                else:
+                    print("There isn't 3 elves in this list")
             else:
                 print("Script probably crashed or result was empty (improbable)")
     except Exception as e:
