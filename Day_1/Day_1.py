@@ -37,6 +37,9 @@ if (__name__ == "__main__"):
             print("Coudn't read input file")
         else:
             ret = main(input)
-        print(ret)
+            if (ret):
+                print(ret)
+            else:
+                print("Script probably crashed or result was empty (improbable)")
     except Exception as e:
         print(e)
