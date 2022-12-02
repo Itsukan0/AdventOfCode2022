@@ -97,5 +97,5 @@ if (__name__ == "__main__"):
         assert input
     ret = main(input)
     assert (len(ret) == 2)
-    print(ret[0]) # Part 1
-    print(ret[1]) # Part 2
+    print(ret[0])  # Part 1
+    print(ret[1])  # Part 2
