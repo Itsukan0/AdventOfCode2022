@@ -92,7 +92,7 @@ def main(strategy_guide: str) -> int:
 if (__name__ == "__main__"):
     ret = None
     input = ""
-    with open('Day_2/input.txt') as f:
+    with open('input.txt') as f:
         input = f.read()
         assert input
     ret = main(input)
