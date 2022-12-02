@@ -35,4 +35,5 @@ if (__name__ == "__main__"):
 
     ret = main(input)
     assert (len(ret) >= 3)
-    print(sum(ret[0:3]))
+    print((ret[0]))  # Part 1
+    print(sum(ret[0:3]))  # Part 2
