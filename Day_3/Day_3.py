@@ -12,10 +12,8 @@ def SetPriorities() -> None:
     return
 
 
-def main(ruck_sack_list: str) -> int:
+def FindDuplicateItems(ruck_sack_list: str) -> int:
     priority_sum = 0
-    SetPriorities()
-
     duplicates = []
     for items in ruck_sack_list.splitlines():
         len_items = len(items)
@@ -37,12 +35,57 @@ def main(ruck_sack_list: str) -> int:
     return priority_sum
 
 
+def FindBadges(ruck_sack_list: str) -> int:
+    priority_sum = 0
+    line_counter = 0
+    lines_per_group = 3
+
+    badges = []
+    first_elf_items = set()
+    second_elf_items = set()
+    group_sets = [first_elf_items, second_elf_items]
+
+    for items in ruck_sack_list.splitlines():
+        if (line_counter % lines_per_group) == 0:
+            line_counter = 0
+            for sets in group_sets:
+                sets.clear()
+
+            group_sets[0] = set(items)
+
+        elif (line_counter % lines_per_group) == 1:
+            group_sets[1] = set(items)
+
+        elif (line_counter % lines_per_group) == 2:
+            for char in items:
+                if char in group_sets[0] and char in group_sets[1]:
+                    badges.append(char)
+                    break
+                else:
+                    pass
+        line_counter += 1
+
+    for letters in badges:
+        priority_sum += priorities_index[letters]
+
+    return priority_sum
+
+
 if (__name__ == "__main__"):
     ret = None
     input = ""
     with open('Day_3/input.txt') as f:
         input = f.read()
         assert input
-    ret = main(input)
+
+    SetPriorities()
+
+    # Part 1
+    ret = FindDuplicateItems(input)
+    assert ret
+    print(ret)
+
+    # Part 2
+    ret = FindBadges(input)
     assert ret
     print(ret)
