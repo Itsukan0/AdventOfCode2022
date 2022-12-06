@@ -28,10 +28,17 @@ def processInstruction(instruction: str) -> tuple:
     return (source-1, destination-1, amount)
 
 
-def moveCrate(source: list, destination: list, Crate_amount: int) -> None:
-    for x in range(Crate_amount):
-        destination.insert(0, source.pop(0))
-    return
+def moveCrate(source: list, destination: list, Crate_amount: int, Crate9001: bool) -> tuple:
+    if Crate9001:
+        new_list = source[0:Crate_amount]
+        source = source[Crate_amount:]
+        destination = new_list + destination
+    else:
+        for x in range(Crate_amount):
+            new_list = source[0:1]
+            source = source[1:]
+            destination = new_list + destination
+    return (source, destination)
 
 
 def sectionDrawing(drawing: str) -> tuple:
@@ -41,15 +48,15 @@ def sectionDrawing(drawing: str) -> tuple:
     return (Crates, Instructions, NumberOfStacks)
 
 
-def main(drawing: str) -> str:
+def main(drawing: str, Crate9001: bool = False) -> str:
     returnstring = ""
     Crates, Instructions, NoS = sectionDrawing(drawing)
-    Queues_List = getStackCrates(Crates, NoS)
+    stacks = getStackCrates(Crates, NoS)
     for instruction in Instructions.split("\n"):
-        source, destination, amount = processInstruction(instruction)
-        moveCrate(Queues_List[source], Queues_List[destination], amount)
+        src, dst, amnt = processInstruction(instruction)
+        stacks[src], stacks[dst] = moveCrate(stacks[src], stacks[dst], amnt, Crate9001)
 
-    for q in Queues_List:
+    for q in stacks:
         returnstring += q[0]
     return returnstring
 
@@ -63,3 +70,6 @@ if (__name__ == "__main__"):
 
     # Part 1
     print(main(input))
+
+    # Part 2
+    print(main(input, True))
